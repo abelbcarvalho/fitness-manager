@@ -83,7 +83,7 @@ BMetabolicRate = {
     "weight": "decimal(n.nnn)",
     "height": "NNN as cm",
     "age": "integer",
-    "gender": "male | female | not say"
+    "gender": "EnumGender"
 }
 ```
 ```python
@@ -101,6 +101,7 @@ Here you can found our project packages structure.
 src/
 |---controllers/
 |---core/
+|---enums
 |---models/
 |---prototypes/
 |---services/
