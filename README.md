@@ -1,6 +1,8 @@
 # Fitness Manager
 Take care of hearth and fitness with this application, using a database to store data about your progress, of course.
 
+Our license is found here: [LICENSE](LICENSE).
+
 ## Summary
 
 1. [Description](#description)
@@ -92,6 +94,30 @@ BRMIntensity = {
 ```
 
 ## Structure
+Here you can found our project packages structure.
+
+```text
+.github/
+src/
+|---controllers/
+|---core/
+|---models/
+|---prototypes/
+|---services/
+|---utilities/
+|---views/
+tests/
+|---controllers/
+|---core/
+|---services/
+.env.example
+.gitignore
+app.py
+LICENSE
+README.md
+requirements.txt
+```
+
 ## Frequent Asks
 
 ---
