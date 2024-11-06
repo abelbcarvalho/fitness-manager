@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from decimal import Decimal
+from typing import List
 
 from sqlalchemy import (
     Boolean,
@@ -15,6 +16,7 @@ from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from src.enums.enum_gender import EnumGender
@@ -42,6 +44,14 @@ class UserDB(Base):
     create_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     update_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
 
+    metabolic_rates: Mapped[List["BMetabolicRateDB"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+
+    brm_intensities: Mapped[List["BRMIntensityDB"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+
 
 class BMetabolicRateDB(Base):
     __tablename__ = "metabolic_rate"
@@ -54,7 +64,7 @@ class BMetabolicRateDB(Base):
     gender: Mapped[EnumGender] = mapped_column(Enum(EnumGender), nullable=False)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), nullable=False)
-    user: Mapped[UserDB] = mapped_column(back_populates="metabolic_rates")
+    user: Mapped["UserDB"] = relationship(back_populates="metabolic_rates")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
@@ -69,7 +79,7 @@ class BRMIntensityDB(Base):
     intensity: Mapped[EnumIntensity] = mapped_column(Enum(EnumIntensity), nullable=False)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), nullable=False)
-    user: Mapped[UserDB] = mapped_column(back_populates="brm_intensities")
+    user: Mapped["UserDB"] = relationship(back_populates="brm_intensities")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
