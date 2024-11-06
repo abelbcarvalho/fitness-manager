@@ -2,6 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from sqlalchemy import (
+    Boolean,
     Date,
     DateTime,
     DECIMAL,
@@ -24,7 +25,7 @@ class Base(DeclarativeBase):
     pass
 
 
-class User(Base):
+class UserDB(Base):
     __tablename__ = "user_account"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -34,12 +35,15 @@ class User(Base):
     gender: Mapped[EnumGender] = mapped_column(Enum(EnumIntensity), nullable=False)
     height: Mapped[int] = mapped_column(Integer, nullable=False)
     weight: Mapped[Decimal] = mapped_column(DECIMAL(6, 3), nullable=False)
+    username: Mapped[str] = mapped_column(String(255), nullable=False)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
+    active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     create_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     update_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
 
 
-class BMetabolicRate(Base):
+class BMetabolicRateDB(Base):
     __tablename__ = "metabolic_rate"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -50,13 +54,13 @@ class BMetabolicRate(Base):
     gender: Mapped[EnumGender] = mapped_column(Enum(EnumGender), nullable=False)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), nullable=False)
-    user: Mapped[User] = mapped_column(back_populates="metabolic_rates")
+    user: Mapped[UserDB] = mapped_column(back_populates="metabolic_rates")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
 
 
-class BRMIntensity(Base):
+class BRMIntensityDB(Base):
     __tablename__ = "brm_intensity"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -65,7 +69,7 @@ class BRMIntensity(Base):
     intensity: Mapped[EnumIntensity] = mapped_column(Enum(EnumIntensity), nullable=False)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"), nullable=False)
-    user: Mapped[User] = mapped_column(back_populates="brm_intensities")
+    user: Mapped[UserDB] = mapped_column(back_populates="brm_intensities")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(), onupdate=datetime.now())
