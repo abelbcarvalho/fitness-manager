@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -10,3 +11,5 @@ class BMetabolicRate(BaseModel):
     height: int
     age: int
     gender: EnumGender
+
+    user_id: Optional[int] = None

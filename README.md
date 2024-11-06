@@ -29,6 +29,7 @@ The project main dependencies list.
 * [Pytest](https://docs.pytest.org/en/stable/)
 * [Pytest Asyncio](https://pytest-asyncio.readthedocs.io/en/latest/)
 * [Pydantic](https://docs.pydantic.dev/latest/)
+* [Psycopg2-Binary](https://pypi.org/project/psycopg2-binary/)
 
 You can install each one following their docs, but I suggest you install all them by the [requirements.txt](requirements.txt) file:
 
@@ -101,9 +102,11 @@ Here you can found our project packages structure.
 src/
 |---controllers/
 |---core/
+|---database/
 |---enums
 |---models/
 |---prototypes/
+|---repositories/
 |---services/
 |---utilities/
 |---views/
