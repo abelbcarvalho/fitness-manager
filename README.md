@@ -101,6 +101,7 @@ Here you can found our project packages structure.
 src/
 |---controllers/
 |---core/
+|---database/
 |---enums
 |---models/
 |---prototypes/
